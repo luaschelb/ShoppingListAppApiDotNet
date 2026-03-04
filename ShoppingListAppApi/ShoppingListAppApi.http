@@ -1,6 +1,0 @@
-@ShoppingListAppApi_HostAddress = http://localhost:5285
-
-GET {{ShoppingListAppApi_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
