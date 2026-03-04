@@ -1,3 +1,4 @@
+using Google.Cloud.Firestore;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ShoppingListAppApi.Controllers
@@ -7,21 +8,24 @@ namespace ShoppingListAppApi.Controllers
     public class ToBuysController : ControllerBase
     {
         private readonly ILogger<ToBuysController> _logger;
+        private readonly FirestoreDb _db;
 
         public ToBuysController(ILogger<ToBuysController> logger)
         {
             _logger = logger;
+            _db = FirestoreDb.Create("shopping-list-app-db");
         }
 
         [HttpGet(Name = "GetToBuys")]
-        public IEnumerable<ToBuy> Get()
+        public async Task<IActionResult> Get()
         {
-            return Enumerable.Range(1, 5).Select(index => new ToBuy
+            var itens = new List<object>();
+            QuerySnapshot snapshot = await _db.Collection("tobuy").GetSnapshotAsync();
+            foreach(DocumentSnapshot document in snapshot.Documents)
             {
-                Name = "Produto qualquer",
-                Quantity = 1
-            })
-            .ToArray();
+                itens.Add(document.ToDictionary());
+            }
+            return Ok(itens);
         }
     }
 }
