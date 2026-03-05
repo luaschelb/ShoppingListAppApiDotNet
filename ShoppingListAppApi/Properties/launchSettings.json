@@ -39,6 +39,7 @@
         "ASPNETCORE_URLS": "http://+:8080",
         "GOOGLE_APPLICATION_CREDENTIALS": "/app/gcp-creds.json",
         "GOOGLE_CLOUD_PROJECT": "project-7e1540ff-5175-468a-b09",
+        "CORS_ALLOWED_ORIGINS": "http://localhost:3000,http://localhost:8081",
         "PORT": "8080"
       },
       "publishAllPorts": true,

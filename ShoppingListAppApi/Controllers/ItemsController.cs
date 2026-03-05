@@ -1,5 +1,6 @@
 using Google.Cloud.Firestore;
 using Microsoft.AspNetCore.Mvc;
+using ShoppingListAppApi.Models;
 
 namespace ShoppingListAppApi.Controllers
 {
@@ -41,14 +42,15 @@ namespace ShoppingListAppApi.Controllers
         /// </returns>
         /// <response code="200">Returns the list of items.</response>
         [HttpGet(Name = "GetItems")]
+        [ProducesResponseType(typeof(List<Item>), StatusCodes.Status200OK)]
         public async Task<IActionResult> Get()
         {
-            var itens = new List<object>();
+            var itens = new List<Item>();
             QuerySnapshot snapshot = await _db.Collection("tobuy").GetSnapshotAsync();
 
             foreach (DocumentSnapshot document in snapshot.Documents)
             {
-                itens.Add(document.ToDictionary());
+                itens.Add(document.ConvertTo<Item>());
             }
 
             return Ok(itens);
