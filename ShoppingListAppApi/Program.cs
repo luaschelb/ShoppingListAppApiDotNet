@@ -17,30 +17,7 @@ builder.WebHost.ConfigureKestrel(options =>
 
 // Credenciais: arquivo, JSON em env var ou ADC (metadata server)
 GoogleCredential cred;
-var credEnv = Environment.GetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS");
-if (!string.IsNullOrEmpty(credEnv))
-{
-    if (File.Exists(credEnv))
-    {
-        using var fs = File.OpenRead(credEnv);
-        cred = GoogleCredential.FromStream(fs);
-        Console.WriteLine($"Using credentials file: {credEnv}");
-    }
-    else if (credEnv.TrimStart().StartsWith("{"))
-    {
-        cred = GoogleCredential.FromJson(credEnv);
-        Console.WriteLine("Using credentials JSON from env var");
-    }
-    else
-    {
-        throw new FileNotFoundException($"Credential file not found: {credEnv}");
-    }
-}
-else
-{
-    cred = GoogleCredential.GetApplicationDefault();
-    Console.WriteLine("Using Application Default Credentials");
-}
+cred = GoogleCredential.GetApplicationDefault();
 
 var defaultApp = FirebaseApp.Create(new AppOptions
 {
