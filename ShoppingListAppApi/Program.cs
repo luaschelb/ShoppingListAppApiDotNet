@@ -12,14 +12,6 @@ var defaultAuth = FirebaseAuth.GetAuth(defaultApp);
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Kestrel: escutar na porta enviada pelo ambiente (Cloud Run define PORT)
-var portEnv = Environment.GetEnvironmentVariable("PORT") ?? "8080";
-if (!int.TryParse(portEnv, out var port)) port = 8080;
-builder.WebHost.ConfigureKestrel(options =>
-{
-    options.ListenAnyIP(port);
-});
-
 // Add services to the container.
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
