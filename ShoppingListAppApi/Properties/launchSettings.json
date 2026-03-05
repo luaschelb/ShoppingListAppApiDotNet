@@ -38,6 +38,7 @@
         "ASPNETCORE_HTTP_PORTS": "8080",
         "ASPNETCORE_URLS": "http://+:8080",
         "GOOGLE_APPLICATION_CREDENTIALS": "/app/gcp-creds.json",
+        "GOOGLE_CLOUD_PROJECT": "project-7e1540ff-5175-468a-b09",
         "PORT": "8080"
       },
       "publishAllPorts": true,

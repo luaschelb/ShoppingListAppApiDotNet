@@ -13,7 +13,13 @@ namespace ShoppingListAppApi.Controllers
         public ToBuysController(ILogger<ToBuysController> logger)
         {
             _logger = logger;
-            _db = FirestoreDb.Create("shopping-list-app-db");
+            var projectId = Environment.GetEnvironmentVariable("GOOGLE_CLOUD_PROJECT");
+
+            _db = new FirestoreDbBuilder
+            {
+                ProjectId = projectId,
+                DatabaseId = "shopping-list-app-db"
+            }.Build();
         }
 
         [HttpGet(Name = "GetToBuys")]
